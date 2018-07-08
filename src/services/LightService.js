@@ -16,6 +16,6 @@ export const fetchLights = () => {
             } else {
                 resolve(lights);
             }
-        }, 1000);
+        }, 200);
     });
 };

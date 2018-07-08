@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 // IMPORT PROJECT REFERENCES
 
-import { fetchLights } from '../state/actions/LightActions';
+import { fetchLights, updateLight } from '../state/actions/LightActions';
 import { LightControlList } from './LightControlList';
 import { LoadingIndicator } from '../shared/LoadingIndicator/LoadingIndicator';
 import { Error } from '../shared/Error/Error';
@@ -24,8 +24,18 @@ class LightController extends Component {
         this.props.fetchLights();
     }
 
-    clickFunc(id){
-        console.log('clicked', id);
+    clickFunc(light, action){
+        console.log('clicked', light._id, light.ip, action);
+        
+        fetch('http://'+light.ip+'/led_' + action.toLowerCase())
+            .then(x=>x.text())
+            .then(x=>{
+                window._res = x;
+                let res = JSON.parse(x);
+                console.log(x);
+                console.log(res);
+                this.props.updateLight({_id:light._id, state: res.LED == 1 ? 'ON' : 'OFF'});
+            });
     }
 
     render() {
@@ -47,6 +57,7 @@ class LightController extends Component {
 
 LightController.propTypes = {
     fetchLights: PropTypes.func.isRequired,
+    updateLight : PropTypes.func.isRequired,
     fetched: PropTypes.bool.isRequired,
     fetching: PropTypes.bool.isRequired,
     failed: PropTypes.bool,
@@ -63,7 +74,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => (
-    bindActionCreators({ fetchLights }, dispatch)
+    bindActionCreators({ fetchLights, updateLight }, dispatch)
 );
 
 const hoc = connect(mapStateToProps, mapDispatchToProps)(LightController);

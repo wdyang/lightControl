@@ -18,7 +18,7 @@ const renderList = (lights, clickFunc )=> (
 
 const renderListItem = (light, clickFunc) => (
     <Fragment key={light._id}>
-        <LightControlItem id={light._id} clickFunc={clickFunc}/>
+        <LightControlItem id={light._id} light={light} clickFunc={clickFunc}/>
     </Fragment>
 );
 

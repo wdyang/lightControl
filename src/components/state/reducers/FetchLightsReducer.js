@@ -1,7 +1,8 @@
 import {
     FETCH_LIGHTS_PENDING,
     FETCH_LIGHTS_FULFILLED,
-    FETCH_LIGHTS_REJECTED
+    FETCH_LIGHTS_REJECTED,
+    UPDATE_LIGHT
 } from '../actions/LightActions';
 
 
@@ -42,6 +43,19 @@ export const FetchLightsReducer = (state = initialState, action) => {
                 fetching: false,
                 fetched: false,
                 failed: true
+            };
+        case UPDATE_LIGHT:
+            console.log('reducing');
+            console.log(action.payload);
+            return {
+                ...state,
+                lights: state.lights.map(light=>{
+                    if(light._id == action.payload._id){
+                        return {...light, state:action.payload.state};
+                    }else{
+                        return light;
+                    }
+                })
             };
         default:
             return state;

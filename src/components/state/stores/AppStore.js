@@ -1,6 +1,6 @@
 // IMPORT PACKAGE REFERENCES
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
 // IMPORT MIDDLEWARE
 
@@ -13,7 +13,9 @@ import { AppReducer } from '../reducers/AppReducer';
 
 
 // CONFIGURE STORE
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const createAppStore = () => {
-    return createStore(AppReducer, applyMiddleware(thunk, promiseMiddleware()));
+    return createStore(AppReducer, composeEnhancers(applyMiddleware(thunk, promiseMiddleware())),
+    );
 };
