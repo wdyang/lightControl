@@ -24,11 +24,15 @@ class LightController extends Component {
         this.props.fetchLights();
     }
 
+    clickFunc(id){
+        console.log('clicked', id);
+    }
+
     render() {
         return (
             <div>
                 {
-                    this.props.fetched && <LightControlList lights={this.props.lights} />
+                    this.props.fetched && <LightControlList lights={this.props.lights} clickFunc={this.clickFunc.bind(this)}/>
                 }
                 {
                     <LoadingIndicator busy={this.props.fetching} />

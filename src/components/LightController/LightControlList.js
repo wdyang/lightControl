@@ -10,26 +10,27 @@ import { LightControlItem } from './LightControlItem';
 
 // COMPONENT
 
-const renderList = lights => (
+const renderList = (lights, clickFunc )=> (
     <div className="list-group animated fadeIn">
-        {lights.map(light => renderListItem(light))}
+        {lights.map(light => renderListItem(light, clickFunc))}
     </div>
 );
 
-const renderListItem = light => (
+const renderListItem = (light, clickFunc) => (
     <Fragment key={light._id}>
-        <LightControlItem id={light._id} />
+        <LightControlItem id={light._id} clickFunc={clickFunc}/>
     </Fragment>
 );
 
 const LightControlList = (props) => (
     <Fragment>
-        {renderList(props.lights)}
+        {renderList(props.lights, props.clickFunc)}
     </Fragment>
 );
 
 LightControlList.propTypes = {
-    lights: PropTypes.array.isRequired
+    lights: PropTypes.array.isRequired,
+    clickFunc: PropTypes.func.isRequired
 };
 
 export { LightControlList };
