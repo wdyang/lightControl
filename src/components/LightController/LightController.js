@@ -22,19 +22,65 @@ class LightController extends Component {
 
     componentDidMount() {
         this.props.fetchLights();
+        setTimeout(()=>{
+            console.log('checking connection...');
+            this.checkConnected();
+        }, 3000);
+    }
+
+    checkConnected(){
+        console.log('checking connecting');
+        let scope = this;
+        this.props.lights.forEach(light =>{
+            fetch('http://'+light.ip+'/led_status')
+                .then(response=>{
+                    if(!response.ok){
+                        throw Error(response.statusText);
+                    }
+                    return response.text();
+                }).then(x=>{
+                    window._res = x;
+                    let res = JSON.parse(x);
+                    console.log(x);
+                    console.log(res);
+                    this.props.updateLight({
+                        _id:light._id, 
+                        state: res.LED == 1 ? 'ON' : 'OFF',
+                        connected : true
+                    });
+                }).catch(function(error) {
+                    console.log('connection error');
+                    console.log(error);
+                    scope.props.updateLight({
+                        _id:light._id, 
+                        connected : false
+                    });
+                });
+        });
     }
 
     clickFunc(light, action){
         console.log('clicked', light._id, light.ip, action);
-        
+        let scope = this;
         fetch('http://'+light.ip+'/led_' + action.toLowerCase())
-            .then(x=>x.text())
-            .then(x=>{
+            .then(response=>{
+                if(!response.ok){
+                    throw Error(response.statusText);
+                }
+                return response.text();
+            }).then(x=>{
                 window._res = x;
                 let res = JSON.parse(x);
                 console.log(x);
                 console.log(res);
                 this.props.updateLight({_id:light._id, state: res.LED == 1 ? 'ON' : 'OFF'});
+            }).catch(function(error) {
+                console.log('connection error');
+                console.log(error);
+                scope.props.updateLight({
+                    _id:light._id, 
+                    connected : false
+                });
             });
     }
 

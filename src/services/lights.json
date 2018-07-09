@@ -1,6 +1,6 @@
 [
-    { "ip" : "light01.local", "desc" : "Light #1", "state": "ON", "_id" : "1001", "connected": true },
-    { "ip" : "0.0.0.0", "desc" : "to be filled", "state": "OFF", "_id" : "1002", "connected": false },
-    { "ip" : "0.0.0.0", "desc" : "to be filled", "state": "OFF", "_id" : "1003", "connected": false },
-    { "ip" : "0.0.0.0", "desc" : "to be filled", "state": "OFF", "_id" : "1004", "connected": false }
+    { "ip" : "light01.local", "desc" : "Light #1", "state": "OFF", "_id" : "1001", "connected": false },
+    { "ip" : "light02.local", "desc" : "Light #2", "state": "OFF", "_id" : "1002", "connected": false },
+    { "ip" : "light03.local", "desc" : "Light #3", "state": "OFF", "_id" : "1003", "connected": false },
+    { "ip" : "light04.local", "desc" : "Light #4", "state": "OFF", "_id" : "1004", "connected": false }
 ]

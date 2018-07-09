@@ -51,7 +51,9 @@ export const FetchLightsReducer = (state = initialState, action) => {
                 ...state,
                 lights: state.lights.map(light=>{
                     if(light._id == action.payload._id){
-                        return {...light, state:action.payload.state};
+                        let state = typeof(action.payload.state)==='undefined' ? light.state : action.payload.state;
+                        let connected = typeof(action.payload.connected)==='undefined' ? light.connected : action.payload.connected;
+                        return {...light, state, connected};
                     }else{
                         return light;
                     }

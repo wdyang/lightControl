@@ -34,8 +34,8 @@ const char
 ESP8266WebServer server(webServerPort);
 
 //--udp ticker
-WiFiUDP g_udp;
-#define g_port 6666
+//WiFiUDP g_udp;
+//#define g_port 6666
 const unsigned long int t_waitTimeMS = 30000;//30sec (not exact)
 unsigned long int t_memory=0;
 
@@ -148,12 +148,12 @@ void setup(void) {
 //  if (MDNS.begin("esp8266")) {
   if (MDNS.begin(NAME)) {
     MDNS.addService("http", "tcp", webServerPort);
-    MDNS.addService("esp", "udp", g_port);
+//    MDNS.addService("esp", "udp", g_port);
     Serial.println("MDNS responder started");
   }
 
   //UDP server
-  g_udp.begin(g_port);
+//  g_udp.begin(g_port);
 
   // web server
   server.on("/", handleRoot);
@@ -167,16 +167,16 @@ void setup(void) {
   Serial.println("HTTP server started");
 }
 
-void udpBrodcast(){
-  IPAddress ip = WiFi.localIP();
-  ip[3] = 255;
-
-  // transmit broadcast package
-  g_udp.beginPacket(ip, g_port);
-  g_udp.write(VALUE.c_str());
-  g_udp.write("\n");
-  g_udp.endPacket();
-}
+//void udpBrodcast(){
+//  IPAddress ip = WiFi.localIP();
+//  ip[3] = 255;
+//
+//  // transmit broadcast package
+//  g_udp.beginPacket(ip, g_port);
+//  g_udp.write(VALUE.c_str());
+//  g_udp.write("\n");
+//  g_udp.endPacket();
+//}
 
 void SerialPrintWiFiStatus(){
   Serial.print("WIFI: ");
@@ -196,9 +196,9 @@ void tick() {
 
   SerialPrintWiFiStatus();//print WIFI status
 
-  updateVALUE();//update the value
+//  updateVALUE();//update the value
   
-  udpBrodcast();//brodcast value using UDP
+//  udpBrodcast();//brodcast value using UDP
 }
 
 
