@@ -21,11 +21,11 @@ export const Header = () => (
                         <NavLink to='/' activeClassName='menu selected' exact={true}>HOME</NavLink>
                     </div>
                 </li>
-                <li className="nav-item">
+                {/*<li className="nav-item">
                     <div className="nav-link">
                         <NavLink to='/zipcodes' activeClassName='menu selected'>ZIP CODES</NavLink>
                     </div>
-                </li>
+                </li>*/}
                 <li className="nav-item">
                     <div className="nav-link">
                         <NavLink to='/lights' activeClassName='menu selected'>LIGHTS CONTROLLER</NavLink>

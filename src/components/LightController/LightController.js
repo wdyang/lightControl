@@ -22,10 +22,10 @@ class LightController extends Component {
 
     componentDidMount() {
         this.props.fetchLights();
-        setTimeout(()=>{
-            console.log('checking connection...');
-            this.checkConnected();
-        }, 3000);
+        // setTimeout(()=>{
+        //     console.log('checking connection...');
+        //     this.checkConnected();
+        // }, 3000);
     }
 
     checkConnected(){

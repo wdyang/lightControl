@@ -17,7 +17,7 @@ const char
   *ssid = "kinetech", 
   *password = "openlabs";
 
-const int ID = 1;
+const int ID = 4;
 //const char *NAME = "light01";
 char NAME[7];
 
